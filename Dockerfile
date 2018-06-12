@@ -12,9 +12,9 @@ RUN yum update -y
 RUN yum install -y supervisor.noarch                 
 
 #ENVIRONMENTS
-ENV PATH_BASE_KUBERNETES="/opt/kubernetes/kube-scheduler"
-ENV DIR_CERTS="${PATH_BASE_KUBERNETES}/certificates"
-ENV SCHEDULER_CERTS="${DIR_CERTS}/kube-scheduler"
+ENV PATH_BASE_KUBERNETES="/opt/kubernetes"
+ENV DIR_CERTS="${PATH_BASE_KUBERNETES}/certs"
+ENV SCHEDULER_CERTS="${DIR_CERTS}/modules/kube-scheduler"
 ENV SCHEDULER_PEM="kube-scheduler.pem"
 ENV SCHEDULER_KEY_PEM="kube-scheduler-key.pem"
 
@@ -30,7 +30,7 @@ RUN set -ex \
     && mkdir -p ${PATH_BASE_KUBERNETES}/bin \
     && cp -a /tmp/kubernetes/server/kubernetes/server/bin/kube-scheduler ${PATH_BASE_KUBERNETES}/bin/ \
     && ln -s ${PATH_BASE_KUBERNETES}/bin/kube-scheduler /usr/local/sbin/kube-scheduler \
-    && mkdir -p DIR_CERTS \    
+    && mkdir -p ${DIR_CERTS} \    
     && useradd kube \
     && chown -R kube:kube ${PATH_BASE_KUBERNETES}/ \
     && rm -rf /tmp/kubernetes \

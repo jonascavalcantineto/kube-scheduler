@@ -28,8 +28,8 @@ read the CNCF [announcement].
 ```
 
 PATH_BASE_KUBERNETES="/opt/kubernetes/"
-DIR_CERTS="${PATH_BASE_KUBERNETES}/certificates"
-SCHEDULER_CERTS="${DIR_CERTS}/kube-scheduler"
+DIR_CERTS="${PATH_BASE_KUBERNETES}/certs"
+SCHEDULER_CERTS="${DIR_CERTS}/modules/kube-scheduler"
 SCHEDULER_PEM="kube-scheduler.pem"
 SCHEDULER_KEY_PEM="kube-scheduler-key.pem"
 
@@ -44,8 +44,8 @@ docker run -d \
         --name <container_name> --privileged \ 
         -p 10251:10251  \
         -e PATH_BASE_KUBERNETES="/opt/kubernetes/" \
-        -e DIR_CERTS="${PATH_BASE_KUBERNETES}/certificates" \
-        -e SCHEDULER_CERTS="${DIR_CERTS}/kube-scheduler" \
+        -e DIR_CERTS="${PATH_BASE_KUBERNETES}/certs" \
+        -e SCHEDULER_CERTS="${DIR_CERTS}/modules/kube-scheduler" \
         -e SCHEDULER_PEM="kube-scheduler.pem" \
         -e SCHEDULER_KEY_PEM="kube-scheduler-key.pem" \
         -v <path_local_storage_with_certificates_api>:${DIR_CERTS} <image>:<tag>
@@ -54,10 +54,6 @@ docker run -d \
 # Docker example
 
 ```
-docker run -d \
-    --name kube-scheduler \
-     -p 10251:10251 \
-     -v /opt/kubernetes/certificates/services/:/opt/kubernetes/kube-scheduler/certificates \
-     kube-scheduler:latest
+docker run -d --name kube-scheduler -h kube-scheduler -p 10251:10251 -v /opt/kubernetes/certs:/opt/kubernetes/certs kube-scheduler
      
 ```
