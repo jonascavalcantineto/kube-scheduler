@@ -54,6 +54,7 @@ docker run -d \
 # Docker example
 
 ```
-docker run -d --name kube-scheduler -h kube-scheduler -p 10251:10251 -v /opt/kubernetes/certs:/opt/kubernetes/certs kube-scheduler
+docker run -d --name kube-scheduler -h kube-scheduler --privileged=true -p 10251:10251 -v /opt/kubernetes/certs:/opt/kubernetes/certs kube-scheduler
      
 ```
+
