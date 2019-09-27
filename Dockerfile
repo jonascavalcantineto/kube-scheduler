@@ -11,6 +11,10 @@ RUN yum install -y \
 RUN yum update -y
 RUN yum install -y supervisor.noarch                 
 
+
+ENV TZ=America/Fortaleza
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 #ENVIRONMENTS
 ENV PATH_BASE_KUBERNETES="/opt/kubernetes"
 ENV DIR_CERTS="${PATH_BASE_KUBERNETES}/certs"
